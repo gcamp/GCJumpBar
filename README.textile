@@ -2,7 +2,7 @@ h1. GCJumpBar
 
 @NSControl@ subclass that mimics the Xcode 4 Jump Bar.
 
-!http://cl.ly/0V2n1q3B3s473S0G1Z3I/Screen_Shot_2011-05-25_at_1.54.06_PM.png!
+!http://littlekiwi.co.cc/GithubImages/GCJumpBarDemo.png!
 
 h2. Usage
 
