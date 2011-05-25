@@ -10,9 +10,9 @@ h2. Usage
 
 When you have added the @GCJumpBar@ in your project, you simply allocate the Jump Bar and pass it a @NSMenu@. That's all. 
 
-The Jump Bar can be used and the delegate and menu can be set in Interface Builder.
+The Jump Bar can be used and its delegate and menu can be set in Interface Builder.
 
-You can set a delegate that will receive messages when the Jump Bar change selection.
+You can set a delegate that will receive messages when the Jump Bar changes selection.
 
 <pre>
 - (void) jumpBar:(GCJumpBar*) jumpBar didSelectItemAtIndexPath:(NSIndexPath*) indexPath;
