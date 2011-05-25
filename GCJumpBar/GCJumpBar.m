@@ -115,19 +115,39 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     dirtyRect.size.height = self.bounds.size.height;
     dirtyRect.origin.y = 0;
     
-    NSGradient* mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
-                                                             endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    NSGradient* mainGradient = nil;
+    if (!self.isEnabled || !self.window.isKeyWindow) mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] 
+                                                                                                  endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+    else mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
+                                                      endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
     [mainGradient drawInRect:dirtyRect angle:-90];
-    [mainGradient release];
-        
+    [mainGradient release];  
+    
     //Draw both stroke lines
-    [[NSColor colorWithCalibratedWhite:0.33 alpha:1.0] set];
-
+    if (!self.isEnabled || !self.window.isKeyWindow) [[NSColor colorWithCalibratedWhite:0.5 alpha:1.0] set];
+    else [[NSColor colorWithCalibratedWhite:0.33 alpha:1.0] set];
+    
     dirtyRect.size.height = 1;
     NSRectFill(dirtyRect);
     
     dirtyRect.origin.y = self.frame.size.height - 1;
     NSRectFill(dirtyRect);
+}
+
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+    [super viewWillMoveToWindow:newWindow];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignKeyNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeKeyNotification object:self.window];
+}
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    
+    if (self.window != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay) name:NSWindowDidResignKeyNotification object:self.window];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay) name:NSWindowDidBecomeKeyNotification object:self.window];  
+    }
 }
 
 #pragma mark - Helper
