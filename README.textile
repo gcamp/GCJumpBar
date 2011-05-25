@@ -1,0 +1,23 @@
+h1. GCJumpBar
+
+@NSControl@ subclass that mimics the Xcode 4 Jump Bar.
+
+!http://cl.ly/0V2n1q3B3s473S0G1Z3I/Screen_Shot_2011-05-25_at_1.54.06_PM.png!
+
+h2. Usage
+
+(See the demo project included)
+
+When you have added the @GCJumpBar@ in your project, you simply allocate the Jump Bar and pass it a @NSMenu@. That's all. 
+
+The Jump Bar can be used and the delegate and menu can be set in Interface Builder.
+
+You can set a delegate that will receive messages when the Jump Bar change selection.
+
+<pre>
+- (void) jumpBar:(GCJumpBar*) jumpBar didSelectItemAtIndexPath:(NSIndexPath*) indexPath;
+</pre>
+
+h2. Missing features
+
+@GCJumpBar@ doesn't have all the feature present in Xcode 4. The subset of feature present right now was what I needed. However, I will continue to work on it and you're welcome to fork it!
