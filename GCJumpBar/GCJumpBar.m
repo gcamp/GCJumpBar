@@ -77,6 +77,16 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     }
 }
 
+- (void)setEnabled:(BOOL)flag {
+    [super setEnabled:flag];
+    
+    for (NSControl* view in [self subviews]) {
+        [view setEnabled:flag];
+    }
+    
+    [self setNeedsDisplay];
+}
+
 #pragma mark - Layout
 
 - (void)performLayout {    
@@ -159,6 +169,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         label.level = level;
         label.frame = NSMakeRect(0, 0, 0, self.frame.size.height);
         label.delegate = self;
+        label.enabled = self.isEnabled;
         
         [self addSubview:label];
         [label release];

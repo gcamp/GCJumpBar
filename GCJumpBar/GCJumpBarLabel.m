@@ -73,10 +73,12 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
 #pragma mark - Delegate
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    NSMenu* menu = [self.delegate menuToPresentWhenClickedForJumpBarLabel:self];
-    [self setPropretyOnMenu:menu deep:0];
-    
-    [menu popUpMenuPositioningItem:[menu itemAtIndex:self.indexInLevel] atLocation:NSMakePoint(-15 , self.frame.size.height - 3) inView:self];
+    if (self.isEnabled) {
+        NSMenu* menu = [self.delegate menuToPresentWhenClickedForJumpBarLabel:self];
+        [self setPropretyOnMenu:menu deep:0];
+        
+        [menu popUpMenuPositioningItem:[menu itemAtIndex:self.indexInLevel] atLocation:NSMakePoint(-15 , self.frame.size.height - 3) inView:self];  
+    }
 }
 
 - (void) menuClicked:(id) sender {
