@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B03A4025138C295C004677BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03A4024138C295C004677BE /* Cocoa.framework */; };
+		B03A402F138C295D004677BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B03A402D138C295D004677BE /* InfoPlist.strings */; };
+		B03A4031138C295D004677BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4030138C295D004677BE /* main.m */; };
+		B03A4035138C295D004677BE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03A4033138C295D004677BE /* Credits.rtf */; };
+		B03A4038138C295D004677BE /* GCJumpBarDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4037138C295D004677BE /* GCJumpBarDemoAppDelegate.m */; };
+		B03A403B138C295D004677BE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B03A4039138C295D004677BE /* MainMenu.xib */; };
+		B03A4050138D5C34004677BE /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = B03A404F138D5C34004677BE /* xcode.png */; };
+		B03A406C138D6F3A004677BE /* NSIndexPath+GCJumpBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4063138D6F3A004677BE /* NSIndexPath+GCJumpBar.m */; };
+		B03A406D138D6F3A004677BE /* NSMenu+IndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4065138D6F3A004677BE /* NSMenu+IndexPath.m */; };
+		B03A406E138D6F3A004677BE /* GCJumpBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4067138D6F3A004677BE /* GCJumpBar.m */; };
+		B03A406F138D6F3A004677BE /* GCJumpBarLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */; };
+		B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B03A4020138C295C004677BE /* GCJumpBarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCJumpBarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B03A4024138C295C004677BE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B03A4027138C295C004677BE /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		B03A4028138C295C004677BE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B03A4029138C295C004677BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B03A402C138C295C004677BE /* GCJumpBarDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GCJumpBarDemo-Info.plist"; sourceTree = "<group>"; };
+		B03A402E138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B03A4030138C295D004677BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B03A4032138C295D004677BE /* GCJumpBarDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCJumpBarDemo-Prefix.pch"; sourceTree = "<group>"; };
+		B03A4034138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		B03A4036138C295D004677BE /* GCJumpBarDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCJumpBarDemoAppDelegate.h; sourceTree = "<group>"; };
+		B03A4037138C295D004677BE /* GCJumpBarDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCJumpBarDemoAppDelegate.m; sourceTree = "<group>"; };
+		B03A403A138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B03A404F138D5C34004677BE /* xcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xcode.png; sourceTree = "<group>"; };
+		B03A4062138D6F3A004677BE /* NSIndexPath+GCJumpBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+GCJumpBar.h"; sourceTree = "<group>"; };
+		B03A4063138D6F3A004677BE /* NSIndexPath+GCJumpBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+GCJumpBar.m"; sourceTree = "<group>"; };
+		B03A4064138D6F3A004677BE /* NSMenu+IndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMenu+IndexPath.h"; sourceTree = "<group>"; };
+		B03A4065138D6F3A004677BE /* NSMenu+IndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMenu+IndexPath.m"; sourceTree = "<group>"; };
+		B03A4066138D6F3A004677BE /* GCJumpBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCJumpBar.h; sourceTree = "<group>"; };
+		B03A4067138D6F3A004677BE /* GCJumpBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCJumpBar.m; sourceTree = "<group>"; };
+		B03A4068138D6F3A004677BE /* GCJumpBarLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCJumpBarLabel.h; sourceTree = "<group>"; };
+		B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCJumpBarLabel.m; sourceTree = "<group>"; };
+		B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GCJumpBarSeparator.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B03A401D138C295C004677BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03A4025138C295C004677BE /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B03A4015138C295C004677BE = {
+			isa = PBXGroup;
+			children = (
+				B03A402A138C295C004677BE /* GCJumpBarDemo */,
+				B03A4023138C295C004677BE /* Frameworks */,
+				B03A4021138C295C004677BE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B03A4021138C295C004677BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4020138C295C004677BE /* GCJumpBarDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B03A4023138C295C004677BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4024138C295C004677BE /* Cocoa.framework */,
+				B03A4026138C295C004677BE /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B03A4026138C295C004677BE /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4027138C295C004677BE /* AppKit.framework */,
+				B03A4028138C295C004677BE /* CoreData.framework */,
+				B03A4029138C295C004677BE /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		B03A402A138C295C004677BE /* GCJumpBarDemo */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4060138D6F3A004677BE /* GCJumpBar */,
+				B03A402B138C295C004677BE /* Supporting Files */,
+			);
+			path = GCJumpBarDemo;
+			sourceTree = "<group>";
+		};
+		B03A402B138C295C004677BE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4036138C295D004677BE /* GCJumpBarDemoAppDelegate.h */,
+				B03A4037138C295D004677BE /* GCJumpBarDemoAppDelegate.m */,
+				B03A404F138D5C34004677BE /* xcode.png */,
+				B03A4039138C295D004677BE /* MainMenu.xib */,
+				B03A402C138C295C004677BE /* GCJumpBarDemo-Info.plist */,
+				B03A402D138C295D004677BE /* InfoPlist.strings */,
+				B03A4030138C295D004677BE /* main.m */,
+				B03A4032138C295D004677BE /* GCJumpBarDemo-Prefix.pch */,
+				B03A4033138C295D004677BE /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B03A4060138D6F3A004677BE /* GCJumpBar */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4061138D6F3A004677BE /* Categories */,
+				B03A4066138D6F3A004677BE /* GCJumpBar.h */,
+				B03A4067138D6F3A004677BE /* GCJumpBar.m */,
+				B03A4068138D6F3A004677BE /* GCJumpBarLabel.h */,
+				B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */,
+				B03A406A138D6F3A004677BE /* Image */,
+			);
+			path = GCJumpBar;
+			sourceTree = SOURCE_ROOT;
+		};
+		B03A4061138D6F3A004677BE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B03A4062138D6F3A004677BE /* NSIndexPath+GCJumpBar.h */,
+				B03A4063138D6F3A004677BE /* NSIndexPath+GCJumpBar.m */,
+				B03A4064138D6F3A004677BE /* NSMenu+IndexPath.h */,
+				B03A4065138D6F3A004677BE /* NSMenu+IndexPath.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		B03A406A138D6F3A004677BE /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B03A401F138C295C004677BE /* GCJumpBarDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B03A403E138C295D004677BE /* Build configuration list for PBXNativeTarget "GCJumpBarDemo" */;
+			buildPhases = (
+				B03A401C138C295C004677BE /* Sources */,
+				B03A401D138C295C004677BE /* Frameworks */,
+				B03A401E138C295C004677BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GCJumpBarDemo;
+			productName = GCJumpBarDemo;
+			productReference = B03A4020138C295C004677BE /* GCJumpBarDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B03A4017138C295C004677BE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = LittleKiwi;
+			};
+			buildConfigurationList = B03A401A138C295C004677BE /* Build configuration list for PBXProject "GCJumpBarDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B03A4015138C295C004677BE;
+			productRefGroup = B03A4021138C295C004677BE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B03A401F138C295C004677BE /* GCJumpBarDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B03A401E138C295C004677BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03A402F138C295D004677BE /* InfoPlist.strings in Resources */,
+				B03A4035138C295D004677BE /* Credits.rtf in Resources */,
+				B03A403B138C295D004677BE /* MainMenu.xib in Resources */,
+				B03A4050138D5C34004677BE /* xcode.png in Resources */,
+				B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B03A401C138C295C004677BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B03A4031138C295D004677BE /* main.m in Sources */,
+				B03A4038138C295D004677BE /* GCJumpBarDemoAppDelegate.m in Sources */,
+				B03A406C138D6F3A004677BE /* NSIndexPath+GCJumpBar.m in Sources */,
+				B03A406D138D6F3A004677BE /* NSMenu+IndexPath.m in Sources */,
+				B03A406E138D6F3A004677BE /* GCJumpBar.m in Sources */,
+				B03A406F138D6F3A004677BE /* GCJumpBarLabel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B03A402D138C295D004677BE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03A402E138C295D004677BE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B03A4033138C295D004677BE /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03A4034138C295D004677BE /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		B03A4039138C295D004677BE /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B03A403A138C295D004677BE /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B03A403C138C295D004677BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B03A403D138C295D004677BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B03A403F138C295D004677BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCJumpBarDemo/GCJumpBarDemo-Prefix.pch";
+				INFOPLIST_FILE = "GCJumpBarDemo/GCJumpBarDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B03A4040138C295D004677BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GCJumpBarDemo/GCJumpBarDemo-Prefix.pch";
+				INFOPLIST_FILE = "GCJumpBarDemo/GCJumpBarDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B03A401A138C295C004677BE /* Build configuration list for PBXProject "GCJumpBarDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B03A403C138C295D004677BE /* Debug */,
+				B03A403D138C295D004677BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B03A403E138C295D004677BE /* Build configuration list for PBXNativeTarget "GCJumpBarDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B03A403F138C295D004677BE /* Debug */,
+				B03A4040138C295D004677BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B03A4017138C295C004677BE /* Project object */;
+}

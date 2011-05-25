@@ -1,0 +1,163 @@
+//
+//  GCJumpBar.m
+//  GCJumpBarDemo
+//
+//  Created by Guillaume Campagna on 11-05-24.
+//  Copyright 2011 LittleKiwi. All rights reserved.
+//
+
+#import "GCJumpBar.h"
+#import "GCJumpBarLabel.h"
+#import "NSIndexPath+GCJumpBar.h"
+#import "NSMenu+IndexPath.h"
+
+const CGFloat GCJumpBarNormalHeight = 23.0;
+
+@interface GCJumpBar () <GCJumpBarLabelDelegate>
+
+- (void) performLayout;
+
+- (GCJumpBarLabel*) labelAtLevel:(NSUInteger) level;
+
+@end
+
+@implementation GCJumpBar
+
+@synthesize delegate;
+@synthesize menu;
+@synthesize selectedIndexPath;
+
+- (id)initWithCoder:(NSCoder *)aDecoder {    
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSRect frame = self.frame;
+        frame.size.height = GCJumpBarNormalHeight;
+        self.frame = frame;
+    }
+    
+    return self;
+}
+
+- (id)initWithFrame:(NSRect)frameRect {
+    return [self initWithFrame:frameRect menu:nil];
+}
+
+- (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu {
+    frameRect.size.height = GCJumpBarNormalHeight;
+    
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        self.menu = aMenu;
+    }
+    
+    return self;
+}
+
+#pragma mark - Setters
+
+- (void)setMenu:(NSMenu *)newMenu {
+    if (newMenu != menu) {
+        [menu release];
+        menu = [newMenu retain];
+        
+        if (menu != nil && self.selectedIndexPath == nil) self.selectedIndexPath = [NSIndexPath indexPathWithIndex:0];
+    }
+}
+
+- (void)setSelectedIndexPath:(NSIndexPath *)newSelectedIndexPath {
+    if (newSelectedIndexPath != selectedIndexPath) {
+        [selectedIndexPath release];
+        selectedIndexPath = [newSelectedIndexPath retain];
+        
+        [self performLayout];
+        
+        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectItemAtIndexPath:)]) {
+            [self.delegate jumpBar:self didSelectItemAtIndexPath:self.selectedIndexPath];
+        }
+    }
+}
+
+#pragma mark - Layout
+
+- (void)performLayout {    
+    NSIndexPath* atThisPointIndexPath = [[[NSIndexPath alloc] init] autorelease];
+    CGFloat baseX = 0;
+    for (NSUInteger position = 0; position < self.selectedIndexPath.length ; position ++) {
+        NSUInteger selectedIndex = [self.selectedIndexPath indexAtPosition:position];
+        atThisPointIndexPath = [atThisPointIndexPath indexPathByAddingIndex:selectedIndex];
+        
+        GCJumpBarLabel* label = [self labelAtLevel:atThisPointIndexPath.length];
+        
+        NSMenuItem* item = [self.menu itemAtIndexPath:atThisPointIndexPath];
+        label.text = item.title;
+        label.image = item.image;
+        label.indexInLevel = selectedIndex;
+        
+        [label sizeToFit];
+        NSRect frame = [label frame];
+        frame.origin.x = baseX;
+        baseX += frame.size.width;
+        label.frame = frame;
+    }
+    
+    NSView* viewToRemove = nil;
+    NSUInteger position = self.selectedIndexPath.length + 1;
+    while ((viewToRemove = [self viewWithTag:position])) {
+        [viewToRemove removeFromSuperview];
+        position ++;
+    }
+}
+
+#pragma mark - Drawing
+
+- (void)drawRect:(NSRect)dirtyRect {
+    //Draw main gradient
+    dirtyRect.size.height = self.bounds.size.height;
+    dirtyRect.origin.y = 0;
+    
+    NSGradient* mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
+                                                             endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    [mainGradient drawInRect:dirtyRect angle:-90];
+    [mainGradient release];
+        
+    //Draw both stroke lines
+    [[NSColor colorWithCalibratedWhite:0.33 alpha:1.0] set];
+
+    dirtyRect.size.height = 1;
+    NSRectFill(dirtyRect);
+    
+    dirtyRect.origin.y = self.frame.size.height - 1;
+    NSRectFill(dirtyRect);
+}
+
+#pragma mark - Helper
+
+- (GCJumpBarLabel *)labelAtLevel:(NSUInteger)level {
+    GCJumpBarLabel* label = [self viewWithTag:level];
+    if (label == nil) {
+        label = [[GCJumpBarLabel alloc] init];
+        label.level = level;
+        label.frame = NSMakeRect(0, 0, 0, self.frame.size.height);
+        label.delegate = self;
+        
+        [self addSubview:label];
+        [label release];
+    }
+    
+    return label;
+}
+
+#pragma mark - GCJumpBarLabelDelegate
+
+- (NSMenu *)menuToPresentWhenClickedForJumpBarLabel:(GCJumpBarLabel *)label {    
+    NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level];
+    
+    return [[self.menu itemAtIndexPath:subIndexPath] menu];
+}
+
+- (void)jumpBarLabel:(GCJumpBarLabel *)label didReceivedClickOnItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level - 1];
+    self.selectedIndexPath = [subIndexPath indexPathByAddingIndexPath:indexPath];
+}
+
+@end
