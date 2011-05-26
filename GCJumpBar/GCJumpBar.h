@@ -17,6 +17,9 @@
 @property (nonatomic, retain) IBOutlet NSMenu* menu;
 @property (nonatomic, retain) NSIndexPath* selectedIndexPath;
 
+ //Change automatically the font in the menu to be the same as the Jump Bar
+@property (nonatomic, assign) BOOL changeFontInMenu;
+
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
 
 @end

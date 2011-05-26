@@ -18,6 +18,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 - (void) performLayout;
 
 - (GCJumpBarLabel*) labelAtLevel:(NSUInteger) level;
+- (void) changeFontInMenu:(NSMenu*) subMenu;
 
 @end
 
@@ -26,6 +27,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 @synthesize delegate;
 @synthesize menu;
 @synthesize selectedIndexPath;
+@synthesize changeFontInMenu;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {    
     self = [super initWithCoder:aDecoder];
@@ -33,6 +35,8 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         NSRect frame = self.frame;
         frame.size.height = GCJumpBarNormalHeight;
         self.frame = frame;
+        
+        self.changeFontInMenu = YES;
     }
     
     return self;
@@ -48,6 +52,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     self = [super initWithFrame:frameRect];
     if (self) {
         self.menu = aMenu;
+        self.changeFontInMenu = YES;
     }
     
     return self;
@@ -61,6 +66,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         menu = [newMenu retain];
         
         if (menu != nil && self.selectedIndexPath == nil) self.selectedIndexPath = [NSIndexPath indexPathWithIndex:0];
+        if (self.changeFontInMenu) [self changeFontInMenu:self.menu];
     }
 }
 
@@ -176,6 +182,20 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     }
     
     return label;
+}
+
+- (void) changeFontInMenu:(NSMenu*) subMenu {
+    for (NSMenuItem* item in [subMenu itemArray]) {
+        NSMutableAttributedString* attributedString = [[item attributedTitle] mutableCopy];
+        if (attributedString == nil) attributedString = [[NSMutableAttributedString alloc] initWithString:item.title];
+        [attributedString addAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:11.0]
+                                                                    forKey:NSFontAttributeName]
+                                  range:NSMakeRange(0, attributedString.length)];
+        [item setAttributedTitle:attributedString];
+        [attributedString release];
+        
+        if ([item hasSubmenu]) [self changeFontInMenu:[item submenu]];
+    }
 }
 
 #pragma mark - GCJumpBarLabelDelegate
