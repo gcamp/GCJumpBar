@@ -21,7 +21,7 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
 
 @implementation GCJumpBarLabel
 
-@synthesize image, text;
+@synthesize image, text, lastLabel;
 @synthesize indexInLevel;
 @synthesize delegate;
 
@@ -35,7 +35,7 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
     NSSize textSize = [self.text sizeWithAttributes:self.attributes];
     width += ceil(textSize.width);
     width += ceil(self.image.size.width);
-    width += 7; //Separator image
+    if (!self.lastLabel) width += 7; //Separator image
     
     NSRect frame = self.frame;
     frame.size.width = width;
@@ -113,9 +113,11 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
         baseLeft += ceil(textSize.width) + GCJumpBarLabelMargin;
     }
     
-    NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarSeparator.png"];
-    [separatorImage drawAtPoint:NSMakePoint(baseLeft, self.frame.size.height / 2 - separatorImage.size.height / 2)
-                       fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    if (!self.lastLabel) {
+        NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarSeparator.png"];
+        [separatorImage drawAtPoint:NSMakePoint(baseLeft, self.frame.size.height / 2 - separatorImage.size.height / 2)
+                           fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];  
+    }
 }
 
 #pragma mark - Helper

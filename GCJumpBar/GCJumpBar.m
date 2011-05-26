@@ -103,6 +103,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         atThisPointIndexPath = [atThisPointIndexPath indexPathByAddingIndex:selectedIndex];
         
         GCJumpBarLabel* label = [self labelAtLevel:atThisPointIndexPath.length];
+        label.lastLabel = (position == (self.selectedIndexPath.length - 1));
         
         NSMenuItem* item = [self.menu itemAtIndexPath:atThisPointIndexPath];
         label.text = item.title;

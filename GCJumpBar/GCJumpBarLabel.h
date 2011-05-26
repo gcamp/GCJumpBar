@@ -14,6 +14,7 @@
 
 @property (nonatomic, retain) NSImage* image;
 @property (nonatomic, retain) NSString* text;
+@property (nonatomic, getter = isLastLabel) BOOL lastLabel;
 
 @property (nonatomic, assign) NSUInteger indexInLevel;
 @property (nonatomic, assign) NSUInteger level;
