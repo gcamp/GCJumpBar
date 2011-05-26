@@ -188,7 +188,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     for (NSMenuItem* item in [subMenu itemArray]) {
         NSMutableAttributedString* attributedString = [[item attributedTitle] mutableCopy];
         if (attributedString == nil) attributedString = [[NSMutableAttributedString alloc] initWithString:item.title];
-        [attributedString addAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:11.0]
+        [attributedString addAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:12.0]
                                                                     forKey:NSFontAttributeName]
                                   range:NSMakeRange(0, attributedString.length)];
         [item setAttributedTitle:attributedString];
