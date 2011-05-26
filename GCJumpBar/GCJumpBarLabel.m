@@ -77,7 +77,7 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
         NSMenu* menu = [self.delegate menuToPresentWhenClickedForJumpBarLabel:self];
         [self setPropretyOnMenu:menu deep:0];
         
-        [menu popUpMenuPositioningItem:[menu itemAtIndex:self.indexInLevel] atLocation:NSMakePoint(-15 , self.frame.size.height - 3) inView:self];  
+        [menu popUpMenuPositioningItem:[menu itemAtIndex:self.indexInLevel] atLocation:NSMakePoint(-16 , self.frame.size.height - 4) inView:self];  
     }
 }
 
@@ -100,8 +100,10 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
     CGFloat baseLeft = GCJumpBarLabelMargin;
     
     if (self.image != nil) {
-        [self.image drawAtPoint:NSMakePoint(baseLeft, floorf(self.frame.size.height / 2 - self.image.size.height / 2)) fromRect:NSZeroRect 
-                      operation:NSCompositeSourceOver fraction:1.0];
+        [self.image drawAtPoint:NSMakePoint(baseLeft, floorf(self.frame.size.height / 2 - self.image.size.height / 2)) 
+                       fromRect:NSZeroRect 
+                      operation:NSCompositeSourceOver 
+                       fraction:1.0];
         baseLeft += ceil(self.image.size.width) + GCJumpBarLabelMargin;
     }
     
