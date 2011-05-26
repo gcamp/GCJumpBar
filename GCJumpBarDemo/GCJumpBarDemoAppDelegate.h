@@ -9,10 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "GCJumpBar.h"
 
-@interface GCJumpBarDemoAppDelegate : NSObject <NSApplicationDelegate> {
+@interface GCJumpBarDemoAppDelegate : NSObject <NSApplicationDelegate, GCJumpBarDelegate> {
     NSWindow *window;
+    NSTextField *label;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSTextField *label;
 
 @end

@@ -15,7 +15,7 @@
     [reprensentation appendFormat:@"%d", [self indexAtPosition:0]];
     
     for (NSUInteger position = 1; position < self.length ; position ++) {
-        [reprensentation appendFormat:@"%d.", [self indexAtPosition:position]];
+        [reprensentation appendFormat:@".%d", [self indexAtPosition:position]];
     }
     
     return reprensentation;
