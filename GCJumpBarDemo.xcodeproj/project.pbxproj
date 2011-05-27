@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B03A4025138C295C004677BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B03A4024138C295C004677BE /* Cocoa.framework */; };
-		B03A402F138C295D004677BE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B03A402D138C295D004677BE /* InfoPlist.strings */; };
 		B03A4031138C295D004677BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4030138C295D004677BE /* main.m */; };
-		B03A4035138C295D004677BE /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B03A4033138C295D004677BE /* Credits.rtf */; };
 		B03A4038138C295D004677BE /* GCJumpBarDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4037138C295D004677BE /* GCJumpBarDemoAppDelegate.m */; };
 		B03A403B138C295D004677BE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B03A4039138C295D004677BE /* MainMenu.xib */; };
 		B03A4050138D5C34004677BE /* xcode.png in Resources */ = {isa = PBXBuildFile; fileRef = B03A404F138D5C34004677BE /* xcode.png */; };
@@ -28,10 +26,8 @@
 		B03A4028138C295C004677BE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B03A4029138C295C004677BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B03A402C138C295C004677BE /* GCJumpBarDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GCJumpBarDemo-Info.plist"; sourceTree = "<group>"; };
-		B03A402E138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B03A4030138C295D004677BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B03A4032138C295D004677BE /* GCJumpBarDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GCJumpBarDemo-Prefix.pch"; sourceTree = "<group>"; };
-		B03A4034138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		B03A4036138C295D004677BE /* GCJumpBarDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCJumpBarDemoAppDelegate.h; sourceTree = "<group>"; };
 		B03A4037138C295D004677BE /* GCJumpBarDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCJumpBarDemoAppDelegate.m; sourceTree = "<group>"; };
 		B03A403A138C295D004677BE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -112,10 +108,8 @@
 				B03A404F138D5C34004677BE /* xcode.png */,
 				B03A4039138C295D004677BE /* MainMenu.xib */,
 				B03A402C138C295C004677BE /* GCJumpBarDemo-Info.plist */,
-				B03A402D138C295D004677BE /* InfoPlist.strings */,
 				B03A4030138C295D004677BE /* main.m */,
 				B03A4032138C295D004677BE /* GCJumpBarDemo-Prefix.pch */,
-				B03A4033138C295D004677BE /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -202,8 +196,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B03A402F138C295D004677BE /* InfoPlist.strings in Resources */,
-				B03A4035138C295D004677BE /* Credits.rtf in Resources */,
 				B03A403B138C295D004677BE /* MainMenu.xib in Resources */,
 				B03A4050138D5C34004677BE /* xcode.png in Resources */,
 				B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */,
@@ -229,22 +221,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B03A402D138C295D004677BE /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B03A402E138C295D004677BE /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		B03A4033138C295D004677BE /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B03A4034138C295D004677BE /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
 		B03A4039138C295D004677BE /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,6 +318,7 @@
 				B03A4040138C295D004677BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
