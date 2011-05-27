@@ -8,7 +8,7 @@ h2. Usage
 
 (See the demo project included)
 
-When you have added the @GCJumpBar@ in your project, you simply allocate the Jump Bar and pass it a @NSMenu@. That's all. 
+When you have added the @GCJumpBar@ folder in your project, simply allocate the Jump Bar and pass it a @NSMenu@. That's all. 
 
 The Jump Bar can be used and its delegate and menu can be set in Interface Builder.
 
