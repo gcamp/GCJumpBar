@@ -44,6 +44,10 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
 
 #pragma mark - Getter/Setters
 
+- (CGFloat)minimumWidth {
+    return GCJumpBarLabelMargin + self.image.size.width + (self.image != nil) * GCJumpBarLabelMargin + (!self.lastLabel) * 7;
+}
+
 - (void)setImage:(NSImage *)newImage {
     if (image != newImage) {
         [image release];
@@ -109,8 +113,14 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
     
     if (self.text != nil) {
         NSSize textSize = [self.text sizeWithAttributes:self.attributes];
-        [self.text drawAtPoint:NSMakePoint(baseLeft, self.frame.size.height / 2 - textSize.height / 2) withAttributes:self.attributes];
-        baseLeft += ceil(textSize.width) + GCJumpBarLabelMargin;
+        CGFloat width = self.frame.size.width - baseLeft - GCJumpBarLabelMargin - (!self.lastLabel * 7);
+        if (width > 0) {
+            [self.text drawInRect:CGRectMake(baseLeft, self.frame.size.height / 2 - textSize.height / 2
+                                             , width, textSize.height) 
+                   withAttributes:self.attributes];
+            baseLeft += width + GCJumpBarLabelMargin;  
+        }
+        //else if (self.image != nil) baseLeft += GCJumpBarLabelMargin;
     }
     
     if (!self.lastLabel) {
@@ -128,10 +138,15 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
     highlightShadow.shadowColor = [NSColor colorWithCalibratedWhite:1.0 alpha:0.5];
     highlightShadow.shadowBlurRadius = 0.0;
     
+    NSMutableParagraphStyle* style = [[NSMutableParagraphStyle alloc] init];
+    [style setLineBreakMode:NSLineBreakByTruncatingTail];
+    
     NSDictionary* attributes = [[NSDictionary alloc] initWithObjectsAndKeys:[NSColor blackColor], NSForegroundColorAttributeName,
                                 highlightShadow, NSShadowAttributeName,
-                                [NSFont systemFontOfSize:12.0], NSFontAttributeName , nil];
+                                [NSFont systemFontOfSize:12.0], NSFontAttributeName ,
+                                style, NSParagraphStyleAttributeName, nil];
     [highlightShadow release];
+    [style release];
     
     return [attributes autorelease];
 }

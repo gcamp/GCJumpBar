@@ -15,8 +15,14 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 
 @interface GCJumpBar () <GCJumpBarLabelDelegate>
 
-- (void) performLayout;
+@property (nonatomic, assign, getter = isUnderIdealWidth) BOOL underIdealWidth;
 
+- (void) performLayout;
+- (void) lookForOverflowWidth;
+- (void) placeLabelAndSetValue;
+- (void) removeUnusedLabels;
+
+- (void) performLayoutIfNeededWithNewSize:(CGSize) size;
 - (GCJumpBarLabel*) labelAtLevel:(NSUInteger) level;
 - (void) changeFontInMenu:(NSMenu*) subMenu;
 
@@ -24,6 +30,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 
 @implementation GCJumpBar
 
+@synthesize underIdealWidth;
 @synthesize delegate;
 @synthesize menu;
 @synthesize selectedIndexPath;
@@ -37,6 +44,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         self.frame = frame;
         
         self.changeFontInMenu = YES;
+        self.underIdealWidth = NO;
     }
     
     return self;
@@ -93,9 +101,34 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     [self setNeedsDisplay];
 }
 
+- (void)setFrame:(NSRect)frameRect {
+    [super setFrame:frameRect];
+    [self performLayoutIfNeededWithNewSize:frameRect.size];
+}
+
+- (void)setBounds:(NSRect)aRect {
+    [super setBounds:aRect];
+    [self performLayoutIfNeededWithNewSize:aRect.size];
+}
+
 #pragma mark - Layout
 
-- (void)performLayout {    
+- (void) performLayoutIfNeededWithNewSize:(CGSize) size {
+    GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
+    if (size.width < (lastLabel.frame.size.width + lastLabel.frame.origin.x) || self.underIdealWidth) {
+        [self performLayout];    
+    }
+}
+
+- (void)performLayout {   
+    self.underIdealWidth = NO;
+    
+    [self placeLabelAndSetValue];
+    [self lookForOverflowWidth];
+    [self removeUnusedLabels];
+}
+
+- (void)placeLabelAndSetValue {
     NSIndexPath* atThisPointIndexPath = [[[NSIndexPath alloc] init] autorelease];
     CGFloat baseX = 0;
     for (NSUInteger position = 0; position < self.selectedIndexPath.length ; position ++) {
@@ -116,7 +149,47 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         baseX += frame.size.width;
         label.frame = frame;
     }
-    
+}
+
+- (void)lookForOverflowWidth {
+    GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
+    if (self.frame.size.width < (lastLabel.frame.size.width + lastLabel.frame.origin.x)) {
+        self.underIdealWidth = YES;
+        
+        //Set new width for the overflow
+        CGFloat overMargin = lastLabel.frame.size.width + lastLabel.frame.origin.x - self.frame.size.width;
+        for (NSUInteger position = 0; position < self.selectedIndexPath.length ; position ++) {
+            GCJumpBarLabel* label = [self labelAtLevel:position + 1];
+            if ((overMargin + label.minimumWidth - label.frame.size.width) < 0) {
+                CGRect frame = label.frame;
+                frame.size.width -= overMargin;
+                label.frame = frame;
+                break;
+            }
+            else {
+                overMargin -= (label.frame.size.width - label.minimumWidth); 
+                
+                CGRect frame = label.frame;
+                frame.size.width = label.minimumWidth;
+                label.frame = frame;
+            }
+        }
+        
+        //Replace the labels at the right place
+        CGFloat baseX = 0;
+        for (NSUInteger position = 0; position < self.selectedIndexPath.length ; position ++) {
+            GCJumpBarLabel* label = [self labelAtLevel:position + 1];
+            
+            NSRect frame = [label frame];
+            frame.origin.x = baseX;
+            baseX += frame.size.width;
+            label.frame = frame;
+        }
+    }
+}
+
+- (void)removeUnusedLabels {
+    //Remove old views
     NSView* viewToRemove = nil;
     NSUInteger position = self.selectedIndexPath.length + 1;
     while ((viewToRemove = [self viewWithTag:position])) {
@@ -133,8 +206,10 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     dirtyRect.origin.y = 0;
     
     NSGradient* mainGradient = nil;
-    if (!self.isEnabled || !self.window.isKeyWindow) mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] 
-                                                                                                  endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+    if (!self.isEnabled || !self.window.isKeyWindow) {
+        mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] 
+                                                     endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+    }
     else mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
                                                       endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
     [mainGradient drawInRect:dirtyRect angle:-90];
@@ -154,16 +229,20 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow {
     [super viewWillMoveToWindow:newWindow];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignKeyNotification object:self.window];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeKeyNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSWindowDidResignKeyNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self 
+                                                    name:NSWindowDidBecomeKeyNotification object:self.window];
 }
 
 - (void)viewDidMoveToWindow {
     [super viewDidMoveToWindow];
     
     if (self.window != nil) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay) name:NSWindowDidResignKeyNotification object:self.window];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay) name:NSWindowDidBecomeKeyNotification object:self.window];  
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay)
+                                                     name:NSWindowDidResignKeyNotification object:self.window];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay)
+                                                     name:NSWindowDidBecomeKeyNotification object:self.window];  
     }
 }
 

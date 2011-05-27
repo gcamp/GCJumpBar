@@ -19,6 +19,8 @@
 @property (nonatomic, assign) NSUInteger indexInLevel;
 @property (nonatomic, assign) NSUInteger level;
 
+@property (nonatomic, readonly) CGFloat minimumWidth;
+
 @property (nonatomic, assign) id<GCJumpBarLabelDelegate> delegate;
 
 @end
