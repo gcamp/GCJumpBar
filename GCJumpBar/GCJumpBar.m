@@ -12,6 +12,7 @@
 #import "NSMenu+IndexPath.h"
 
 const CGFloat GCJumpBarNormalHeight = 23.0;
+const CGFloat GCJumpBarNormalImageSize = 16.0;
 
 @interface GCJumpBar () <GCJumpBarLabelDelegate>
 
@@ -24,7 +25,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 
 - (void) performLayoutIfNeededWithNewSize:(CGSize) size;
 - (GCJumpBarLabel*) labelAtLevel:(NSUInteger) level;
-- (void) changeFontInMenu:(NSMenu*) subMenu;
+- (void) changeFontAndImageInMenu:(NSMenu*) subMenu;
 
 @end
 
@@ -34,7 +35,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
 @synthesize delegate;
 @synthesize menu;
 @synthesize selectedIndexPath;
-@synthesize changeFontInMenu;
+@synthesize changeFontAndImageInMenu;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {    
     self = [super initWithCoder:aDecoder];
@@ -43,7 +44,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         frame.size.height = GCJumpBarNormalHeight;
         self.frame = frame;
         
-        self.changeFontInMenu = YES;
+        self.changeFontAndImageInMenu = YES;
         self.underIdealWidth = NO;
     }
     
@@ -60,7 +61,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     self = [super initWithFrame:frameRect];
     if (self) {
         self.menu = aMenu;
-        self.changeFontInMenu = YES;
+        self.changeFontAndImageInMenu = YES;
     }
     
     return self;
@@ -74,7 +75,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         menu = [newMenu retain];
         
         if (menu != nil && self.selectedIndexPath == nil) self.selectedIndexPath = [NSIndexPath indexPathWithIndex:0];
-        if (self.changeFontInMenu) [self changeFontInMenu:self.menu];
+        if (self.changeFontAndImageInMenu) [self changeFontAndImageInMenu:self.menu];
     }
 }
 
@@ -264,7 +265,7 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
     return label;
 }
 
-- (void) changeFontInMenu:(NSMenu*) subMenu {
+- (void) changeFontAndImageInMenu:(NSMenu*) subMenu {
     for (NSMenuItem* item in [subMenu itemArray]) {
         NSMutableAttributedString* attributedString = [[item attributedTitle] mutableCopy];
         if (attributedString == nil) attributedString = [[NSMutableAttributedString alloc] initWithString:item.title];
@@ -274,7 +275,9 @@ const CGFloat GCJumpBarNormalHeight = 23.0;
         [item setAttributedTitle:attributedString];
         [attributedString release];
         
-        if ([item hasSubmenu]) [self changeFontInMenu:[item submenu]];
+        [item.image setSize:NSMakeSize(GCJumpBarNormalImageSize, GCJumpBarNormalImageSize)];
+        
+        if ([item hasSubmenu]) [self changeFontAndImageInMenu:[item submenu]];
     }
 }
 
