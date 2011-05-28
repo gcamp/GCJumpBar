@@ -10,6 +10,7 @@
 #import "NSIndexPath+GCJumpBar.h"
 
 const CGFloat GCJumpBarLabelMargin = 5.0;
+const CGFloat GCJumpBarLabelImageSize = 16.0;
 
 @interface GCJumpBarLabel ()
 
@@ -104,7 +105,8 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
     CGFloat baseLeft = GCJumpBarLabelMargin;
     
     if (self.image != nil) {
-        [self.image drawAtPoint:NSMakePoint(baseLeft, floorf(self.frame.size.height / 2 - self.image.size.height / 2)) 
+        [self.image drawInRect:NSMakeRect(baseLeft, floorf(self.frame.size.height / 2 - self.image.size.height / 2),
+                                          GCJumpBarLabelImageSize, GCJumpBarLabelImageSize) 
                        fromRect:NSZeroRect 
                       operation:NSCompositeSourceOver 
                        fraction:1.0];
@@ -120,7 +122,6 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
                    withAttributes:self.attributes];
             baseLeft += width + GCJumpBarLabelMargin;  
         }
-        //else if (self.image != nil) baseLeft += GCJumpBarLabelMargin;
     }
     
     if (!self.lastLabel) {
