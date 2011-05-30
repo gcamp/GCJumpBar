@@ -273,8 +273,11 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
         NSDictionary* attribues = (attributedString.length != 0) ? [attributedString attributesAtIndex:0 effectiveRange:nil] : nil;
         NSFont* font = [attribues objectForKey:NSFontAttributeName];
         NSString* fontDescrition = [font fontName];
-        if ([fontDescrition rangeOfString:@"Bold" options:NSCaseInsensitiveSearch].location != NSNotFound && fontDescrition != nil) {
-            font = [NSFont boldSystemFontOfSize:12.0];
+        if (fontDescrition != nil) {
+            if ([fontDescrition rangeOfString:@"Bold" options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                font = [NSFont boldSystemFontOfSize:12.0];
+            }
+            else font = [NSFont systemFontOfSize:12.0];
         }
         else font = [NSFont systemFontOfSize:12.0];
         
