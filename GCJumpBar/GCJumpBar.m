@@ -67,6 +67,12 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
     return self;
 }
 
+#pragma mark - Subclass
+
+- (NSMenu *)menuForEvent:(NSEvent *)event {
+    return nil;
+}
+
 #pragma mark - Setters
 
 - (void)setMenu:(NSMenu *)newMenu {
