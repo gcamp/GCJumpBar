@@ -269,8 +269,16 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
     for (NSMenuItem* item in [subMenu itemArray]) {
         NSMutableAttributedString* attributedString = [[item attributedTitle] mutableCopy];
         if (attributedString == nil) attributedString = [[NSMutableAttributedString alloc] initWithString:item.title];
-        [attributedString addAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:12.0]
-                                                                    forKey:NSFontAttributeName]
+        
+        NSDictionary* attribues = (attributedString.length != 0) ? [attributedString attributesAtIndex:0 effectiveRange:nil] : nil;
+        NSFont* font = [attribues objectForKey:NSFontAttributeName];
+        NSString* fontDescrition = [font fontName];
+        if ([fontDescrition rangeOfString:@"Bold" options:NSCaseInsensitiveSearch].location != NSNotFound && fontDescrition != nil) {
+            font = [NSFont boldSystemFontOfSize:12.0];
+        }
+        else font = [NSFont systemFontOfSize:12.0];
+        
+        [attributedString addAttributes:[NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName]
                                   range:NSMakeRange(0, attributedString.length)];
         [item setAttributedTitle:attributedString];
         [attributedString release];
