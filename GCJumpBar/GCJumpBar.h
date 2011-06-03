@@ -21,6 +21,7 @@
 @property (nonatomic, assign) BOOL changeFontAndImageInMenu;
 
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
+- (NSMenuItem*) menuItemAtIndexPath:(NSIndexPath*) indexPath;
 
 @end
 

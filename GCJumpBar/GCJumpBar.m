@@ -298,6 +298,10 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
     }
 }
 
+- (NSMenuItem *)menuItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.menu itemAtIndexPath:indexPath];
+}
+
 #pragma mark - GCJumpBarLabelDelegate
 
 - (NSMenu *)menuToPresentWhenClickedForJumpBarLabel:(GCJumpBarLabel *)label {    
