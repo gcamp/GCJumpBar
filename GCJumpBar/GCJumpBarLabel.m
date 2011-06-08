@@ -153,10 +153,12 @@ const CGFloat GCJumpBarLabelMargin = 5.0;
 
 - (void)setPropretyOnMenu:(NSMenu *)menu deep:(NSInteger) deep {
     for (NSMenuItem* item in [menu itemArray]) {
-        [item setTag:deep];
-        [item setTarget:self];
-        [item setAction:@selector(menuClicked:)];  
-        if ([item hasSubmenu]) [self setPropretyOnMenu:item.submenu deep:deep + 1];
+        if (item.isEnabled) {
+            [item setTag:deep];
+            [item setTarget:self];
+            [item setAction:@selector(menuClicked:)];  
+            if ([item hasSubmenu]) [self setPropretyOnMenu:item.submenu deep:deep + 1];  
+        }
     }
 }
 
