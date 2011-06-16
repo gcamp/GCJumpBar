@@ -14,6 +14,8 @@
 const CGFloat GCJumpBarNormalHeight = 23.0;
 const CGFloat GCJumpBarNormalImageSize = 16.0;
 
+const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
+
 @interface GCJumpBar () <GCJumpBarLabelDelegate>
 
 @property (nonatomic, assign, getter = isUnderIdealWidth) BOOL underIdealWidth;
@@ -32,9 +34,11 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
 @implementation GCJumpBar
 
 @synthesize underIdealWidth;
+
 @synthesize delegate;
-@synthesize menu;
-@synthesize selectedIndexPath;
+@synthesize menu, accessoryMenu;
+
+@synthesize selectedIndexPath, accessoryMenuSelectedIndex;
 @synthesize changeFontAndImageInMenu;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {    
@@ -62,6 +66,7 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
     if (self) {
         self.menu = aMenu;
         self.changeFontAndImageInMenu = YES;
+        self.accessoryMenuSelectedIndex = 0;
     }
     
     return self;
@@ -85,6 +90,17 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
     }
 }
 
+- (void)setAccessoryMenu:(NSMenu *)newAccessoryMenu {
+    if (newAccessoryMenu != accessoryMenu) {
+        [accessoryMenu release];
+        accessoryMenu = [newAccessoryMenu retain];
+        
+        if (self.changeFontAndImageInMenu) [self changeFontAndImageInMenu:self.accessoryMenu];
+        
+        [self performLayout];
+    }
+}
+
 - (void)setSelectedIndexPath:(NSIndexPath *)newSelectedIndexPath {
     if (newSelectedIndexPath != selectedIndexPath) {
         [selectedIndexPath release];
@@ -94,6 +110,18 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
         
         if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectItemAtIndexPath:)]) {
             [self.delegate jumpBar:self didSelectItemAtIndexPath:self.selectedIndexPath];
+        }
+    }
+}
+
+- (void)setAccessoryMenuSelectedIndex:(NSUInteger)newAccessoryMenuSelectedIndex {
+    if (accessoryMenuSelectedIndex != newAccessoryMenuSelectedIndex) {
+        accessoryMenuSelectedIndex = newAccessoryMenuSelectedIndex;
+        
+        [self performLayout];
+        
+        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectAccessoryMenuItemAtIndex:)]) {
+            [self.delegate jumpBar:self didSelectAccessoryMenuItemAtIndex:self.accessoryMenuSelectedIndex];
         }
     }
 }
@@ -121,9 +149,14 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
 #pragma mark - Layout
 
 - (void) performLayoutIfNeededWithNewSize:(CGSize) size {
-    GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
-    if (size.width < (lastLabel.frame.size.width + lastLabel.frame.origin.x) || self.underIdealWidth) {
-        [self performLayout];    
+    if (self.accessoryMenu != nil  || self.underIdealWidth) [self performLayout];
+    else {
+        GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
+        CGFloat endFloat = lastLabel.frame.size.width + lastLabel.frame.origin.x;
+        
+        if (size.width < endFloat) {
+            [self performLayout];    
+        }
     }
 }
 
@@ -156,16 +189,37 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
         baseX += frame.size.width;
         label.frame = frame;
     }
+    
+    if (self.accessoryMenu != nil) {
+        GCJumpBarLabel* accessoryLabel = [self labelAtLevel:GCJumpBarAccessoryMenuLabelTag];
+        
+        NSMenuItem* item = [self.accessoryMenu itemAtIndex:self.accessoryMenuSelectedIndex];
+        accessoryLabel.image = item.image;
+        accessoryLabel.text = item.title;
+        accessoryLabel.indexInLevel = self.accessoryMenuSelectedIndex;
+        [accessoryLabel sizeToFit];
+        
+        NSRect frame = [accessoryLabel frame];
+        frame.origin.x = self.frame.size.width - accessoryLabel.frame.size.width;
+        accessoryLabel.frame = frame;
+    }
 }
 
 - (void)lookForOverflowWidth {
     GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
-    if (self.frame.size.width < (lastLabel.frame.size.width + lastLabel.frame.origin.x)) {
+    CGFloat endFloat = lastLabel.frame.size.width + lastLabel.frame.origin.x;
+
+    if (self.accessoryMenu != nil) {
+        endFloat += [[self viewWithTag:GCJumpBarAccessoryMenuLabelTag] frame].size.width;
+    }
+    
+    if (self.frame.size.width < endFloat) {
         self.underIdealWidth = YES;
         
         //Set new width for the overflow
-        CGFloat overMargin = lastLabel.frame.size.width + lastLabel.frame.origin.x - self.frame.size.width;
-        for (NSUInteger position = 0; position < self.selectedIndexPath.length ; position ++) {
+        CGFloat overMargin = endFloat - self.frame.size.width;
+        for (NSUInteger position = 0; position < self.selectedIndexPath.length + (self.accessoryMenu != nil); position ++) {
+            if (position == self.selectedIndexPath.length) position = GCJumpBarAccessoryMenuLabelTag - 1;
             GCJumpBarLabel* label = [self labelAtLevel:position + 1];
             if ((overMargin + label.minimumWidth - label.frame.size.width) < 0) {
                 CGRect frame = label.frame;
@@ -192,6 +246,14 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
             baseX += frame.size.width;
             label.frame = frame;
         }
+        
+        if (self.accessoryMenu != nil) {
+            GCJumpBarLabel* accessoryLabel = [self labelAtLevel:GCJumpBarAccessoryMenuLabelTag];
+            
+            NSRect frame = [accessoryLabel frame];
+            frame.origin.x = self.frame.size.width - accessoryLabel.frame.size.width;
+            accessoryLabel.frame = frame;
+        }
     }
 }
 
@@ -203,6 +265,8 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
         [viewToRemove removeFromSuperview];
         position ++;
     }
+    
+    if (self.accessoryMenu == nil) [[self viewWithTag:GCJumpBarAccessoryMenuLabelTag] removeFromSuperview];
 }
 
 #pragma mark - Drawing
@@ -305,14 +369,20 @@ const CGFloat GCJumpBarNormalImageSize = 16.0;
 #pragma mark - GCJumpBarLabelDelegate
 
 - (NSMenu *)menuToPresentWhenClickedForJumpBarLabel:(GCJumpBarLabel *)label {    
-    NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level];
-    
-    return [[self.menu itemAtIndexPath:subIndexPath] menu];
+    if (label.tag == GCJumpBarAccessoryMenuLabelTag) return self.accessoryMenu;
+    else {
+        NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level];
+        
+        return [[self.menu itemAtIndexPath:subIndexPath] menu];  
+    }
 }
 
 - (void)jumpBarLabel:(GCJumpBarLabel *)label didReceivedClickOnItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level - 1];
-    self.selectedIndexPath = [subIndexPath indexPathByAddingIndexPath:indexPath];
+    if (label.tag == GCJumpBarAccessoryMenuLabelTag) self.accessoryMenuSelectedIndex = [indexPath indexAtPosition:0];
+    else {
+        NSIndexPath* subIndexPath = [self.selectedIndexPath subIndexPathToPosition:label.level - 1];
+        self.selectedIndexPath = [subIndexPath indexPathByAddingIndexPath:indexPath];  
+    }
 }
 
 @end

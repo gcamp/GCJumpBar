@@ -17,6 +17,7 @@
 		B03A406E138D6F3A004677BE /* GCJumpBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4067138D6F3A004677BE /* GCJumpBar.m */; };
 		B03A406F138D6F3A004677BE /* GCJumpBarLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */; };
 		B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */; };
+		B04247D413A9A99C005FF30D /* GCJumpBarAccessorySeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		B03A4068138D6F3A004677BE /* GCJumpBarLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCJumpBarLabel.h; sourceTree = "<group>"; };
 		B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCJumpBarLabel.m; sourceTree = "<group>"; };
 		B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GCJumpBarSeparator.png; sourceTree = "<group>"; };
+		B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GCJumpBarAccessorySeparator.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		B03A406A138D6F3A004677BE /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */,
 				B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */,
 			);
 			path = Image;
@@ -199,6 +202,7 @@
 				B03A403B138C295D004677BE /* MainMenu.xib in Resources */,
 				B03A4050138D5C34004677BE /* xcode.png in Resources */,
 				B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */,
+				B04247D413A9A99C005FF30D /* GCJumpBarAccessorySeparator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
