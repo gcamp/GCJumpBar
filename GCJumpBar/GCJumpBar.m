@@ -366,6 +366,14 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     return [self.menu itemAtIndexPath:indexPath];
 }
 
+- (NSMenuItem *)selectedMenuItem {
+    return [self menuItemAtIndexPath:self.selectedIndexPath];
+}
+
+- (NSMenuItem *)selectedAccessoryMenuItem {
+    return [self.accessoryMenu itemAtIndex:self.accessoryMenuSelectedIndex];
+}
+
 #pragma mark - GCJumpBarLabelDelegate
 
 - (NSMenu *)menuToPresentWhenClickedForJumpBarLabel:(GCJumpBarLabel *)label {    
