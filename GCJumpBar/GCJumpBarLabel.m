@@ -94,9 +94,11 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     NSMenuItem* item = sender;
     NSIndexPath* indexPath = [[[NSIndexPath alloc] init] autorelease];
     
-    while (item.tag != 0) {
-        indexPath = [indexPath indexPathByAddingIndexInFront:[[item menu] indexOfItem:item]];
-        item = [item parentItem];
+    if (self.tag != GCJumpBarLabelAccessoryMenuLabelTag) {
+        while (item.tag != 0) {
+            indexPath = [indexPath indexPathByAddingIndexInFront:[[item menu] indexOfItem:item]];
+            item = [item parentItem];
+        }  
     }
     indexPath = [indexPath indexPathByAddingIndexInFront:[[item menu] indexOfItem:item]];
     
@@ -168,7 +170,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
 - (void)setPropretyOnMenu:(NSMenu *)menu deep:(NSInteger) deep {
     for (NSMenuItem* item in [menu itemArray]) {
         if (item.isEnabled) {
-            [item setTag:deep];
+            if (self.tag != GCJumpBarLabelAccessoryMenuLabelTag) [item setTag:deep];
             [item setTarget:self];
             [item setAction:@selector(menuClicked:)];  
             if ([item hasSubmenu]) [self setPropretyOnMenu:item.submenu deep:deep + 1];  
