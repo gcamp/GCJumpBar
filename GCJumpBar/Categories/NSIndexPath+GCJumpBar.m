@@ -18,7 +18,7 @@
         [reprensentation appendFormat:@".%d", [self indexAtPosition:position]];
     }
     
-    return reprensentation;
+    return [reprensentation autorelease];
 }
 
 - (NSIndexPath*) indexPathByAddingIndexPath:(NSIndexPath*) indexPath {

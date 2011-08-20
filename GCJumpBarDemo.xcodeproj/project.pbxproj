@@ -175,6 +175,7 @@
 		B03A4017138C295C004677BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = LittleKiwi;
 			};
 			buildConfigurationList = B03A401A138C295C004677BE /* Build configuration list for PBXProject "GCJumpBarDemo" */;
