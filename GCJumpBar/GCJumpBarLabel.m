@@ -115,7 +115,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     
     if (self.tag == GCJumpBarLabelAccessoryMenuLabelTag) {
         NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarAccessorySeparator.png"];
-        [separatorImage drawAtPoint:NSMakePoint(baseLeft, self.frame.size.height / 2 - separatorImage.size.height / 2)
+        [separatorImage drawAtPoint:NSMakePoint(baseLeft + 1, self.frame.size.height / 2 - separatorImage.size.height / 2)
                            fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];  
         baseLeft += separatorImage.size.width + GCJumpBarLabelMargin;
     }
