@@ -16,15 +16,16 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
 @interface GCJumpBarLabel ()
 
 @property (nonatomic, readonly) NSDictionary* attributes;
+@property (nonatomic, retain) NSMenu* clickedMenu;
 
-- (void)setPropretyOnMenu:(NSMenu *)menu deep:(NSInteger) deep;
+- (void)setPropretyOnMenu:(NSMenu *)menu;
 
 @end
 
 @implementation GCJumpBarLabel
 
 @synthesize image, text, lastLabel;
-@synthesize indexInLevel;
+@synthesize indexInLevel, clickedMenu;
 @synthesize delegate;
 
 #pragma mark - View subclass
@@ -80,13 +81,13 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
 
 - (void)mouseDown:(NSEvent *)theEvent {
     if (self.isEnabled) {
-        NSMenu* menu = [self.delegate menuToPresentWhenClickedForJumpBarLabel:self];
-        [self setPropretyOnMenu:menu deep:0];
+        self.clickedMenu = [self.delegate menuToPresentWhenClickedForJumpBarLabel:self];
+        [self setPropretyOnMenu:self.clickedMenu];
         
         CGFloat xPoint = (self.tag == GCJumpBarLabelAccessoryMenuLabelTag ? - 9 : - 16);
         
-        [menu popUpMenuPositioningItem:[menu itemAtIndex:self.indexInLevel] 
-                            atLocation:NSMakePoint(xPoint , self.frame.size.height - 4) inView:self];  
+        [self.clickedMenu popUpMenuPositioningItem:[self.clickedMenu itemAtIndex:self.indexInLevel] 
+                                        atLocation:NSMakePoint(xPoint , self.frame.size.height - 4) inView:self];  
     }
 }
 
@@ -95,7 +96,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     NSIndexPath* indexPath = [[[NSIndexPath alloc] init] autorelease];
     
     if (self.tag != GCJumpBarLabelAccessoryMenuLabelTag) {
-        while (item.tag != 0) {
+        while (![[self.clickedMenu itemArray] containsObject:item]) {
             indexPath = [indexPath indexPathByAddingIndexInFront:[[item menu] indexOfItem:item]];
             item = [item parentItem];
         }  
@@ -103,6 +104,8 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     indexPath = [indexPath indexPathByAddingIndexInFront:[[item menu] indexOfItem:item]];
     
     [self.delegate jumpBarLabel:self didReceivedClickOnItemAtIndexPath:indexPath];
+    
+    self.clickedMenu = nil;
 }
 
 #pragma mark - Dawing
@@ -167,13 +170,12 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     return [attributes autorelease];
 }
 
-- (void)setPropretyOnMenu:(NSMenu *)menu deep:(NSInteger) deep {
+- (void)setPropretyOnMenu:(NSMenu *)menu {
     for (NSMenuItem* item in [menu itemArray]) {
         if (item.isEnabled) {
-            if (self.tag != GCJumpBarLabelAccessoryMenuLabelTag) [item setTag:deep];
             [item setTarget:self];
             [item setAction:@selector(menuClicked:)];  
-            if ([item hasSubmenu]) [self setPropretyOnMenu:item.submenu deep:deep + 1];  
+            if ([item hasSubmenu]) [self setPropretyOnMenu:item.submenu];  
         }
     }
 }
