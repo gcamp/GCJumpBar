@@ -107,10 +107,10 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         selectedIndexPath = [newSelectedIndexPath retain];
         
         [self performLayout];
-        
-        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectItemAtIndexPath:)]) {
-            [self.delegate jumpBar:self didSelectItemAtIndexPath:self.selectedIndexPath];
-        }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectItemAtIndexPath:)]) {
+        [self.delegate jumpBar:self didSelectItemAtIndexPath:self.selectedIndexPath];
     }
 }
 
@@ -119,10 +119,10 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         accessoryMenuSelectedIndex = newAccessoryMenuSelectedIndex;
         
         [self performLayout];
-        
-        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectAccessoryMenuItemAtIndex:)]) {
-            [self.delegate jumpBar:self didSelectAccessoryMenuItemAtIndex:self.accessoryMenuSelectedIndex];
-        }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectAccessoryMenuItemAtIndex:)]) {
+        [self.delegate jumpBar:self didSelectAccessoryMenuItemAtIndex:self.accessoryMenuSelectedIndex];
     }
 }
 
