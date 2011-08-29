@@ -87,6 +87,8 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         
         if (menu != nil && self.selectedIndexPath == nil) self.selectedIndexPath = [NSIndexPath indexPathWithIndex:0];
         if (self.changeFontAndImageInMenu) [self changeFontAndImageInMenu:self.menu];
+        
+        [self performLayout];
     }
 }
 
