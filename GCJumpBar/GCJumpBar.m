@@ -89,6 +89,10 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         if (self.changeFontAndImageInMenu) [self changeFontAndImageInMenu:self.menu];
         
         [self performLayout];
+        
+        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectItemAtIndexPath:)]) {
+            [self.delegate jumpBar:self didSelectItemAtIndexPath:self.selectedIndexPath];
+        }
     }
 }
 
@@ -100,6 +104,10 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         if (self.changeFontAndImageInMenu) [self changeFontAndImageInMenu:self.accessoryMenu];
         
         [self performLayout];
+        
+        if ([self.delegate respondsToSelector:@selector(jumpBar:didSelectAccessoryMenuItemAtIndex:)]) {
+            [self.delegate jumpBar:self didSelectAccessoryMenuItemAtIndex:self.accessoryMenuSelectedIndex];
+        }
     }
 }
 
