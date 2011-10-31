@@ -23,8 +23,8 @@
  //Change automatically the font in the menu to be the same as the Jump Bar and resize the image to 16x16
 @property (nonatomic, assign) BOOL changeFontAndImageInMenu;
 
-@property (nonatomic, readonly) NSMenuItem* selectedMenuItem;
-@property (nonatomic, readonly) NSMenuItem* selectedAccessoryMenuItem;
+@property (nonatomic, retain) NSMenuItem* selectedMenuItem;
+@property (nonatomic, retain) NSMenuItem* selectedAccessoryMenuItem;
 
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
 - (NSMenuItem*) menuItemAtIndexPath:(NSIndexPath*) indexPath;

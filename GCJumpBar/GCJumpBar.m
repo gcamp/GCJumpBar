@@ -380,8 +380,22 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     return [self menuItemAtIndexPath:self.selectedIndexPath];
 }
 
+- (void)setSelectedMenuItem:(NSMenuItem *)selectedMenuItem {
+    NSIndexPath* indexPath = [NSIndexPath indexPathWithIndex:[selectedMenuItem.menu indexOfItem:selectedMenuItem]];
+    while (selectedMenuItem.parentItem != nil) {
+        indexPath = [indexPath indexPathByAddingIndexInFront:[selectedMenuItem.menu indexOfItem:selectedMenuItem]];
+        selectedMenuItem = selectedMenuItem.parentItem;
+    }
+    
+    self.selectedIndexPath = indexPath;
+}
+
 - (NSMenuItem *)selectedAccessoryMenuItem {
     return [self.accessoryMenu itemAtIndex:self.accessoryMenuSelectedIndex];
+}
+
+- (void)setSelectedAccessoryMenuItem:(NSMenuItem *)selectedAccessoryMenuItem {
+    self.accessoryMenuSelectedIndex = [selectedAccessoryMenuItem.menu indexOfItem:selectedAccessoryMenuItem];
 }
 
 #pragma mark - GCJumpBarLabelDelegate
