@@ -383,8 +383,8 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
 - (void)setSelectedMenuItem:(NSMenuItem *)selectedMenuItem {
     NSIndexPath* indexPath = [NSIndexPath indexPathWithIndex:[selectedMenuItem.menu indexOfItem:selectedMenuItem]];
     while (selectedMenuItem.parentItem != nil) {
-        indexPath = [indexPath indexPathByAddingIndexInFront:[selectedMenuItem.menu indexOfItem:selectedMenuItem]];
         selectedMenuItem = selectedMenuItem.parentItem;
+        indexPath = [indexPath indexPathByAddingIndexInFront:[selectedMenuItem.menu indexOfItem:selectedMenuItem]];
     }
     
     self.selectedIndexPath = indexPath;
