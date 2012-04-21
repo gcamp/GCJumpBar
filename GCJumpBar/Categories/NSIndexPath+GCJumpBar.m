@@ -12,10 +12,10 @@
 
 - (NSString *)stringRepresentation {
     NSMutableString* reprensentation = [[NSMutableString alloc] initWithCapacity:[self length] * 2 - 1];
-    [reprensentation appendFormat:@"%d", [self indexAtPosition:0]];
+    [reprensentation appendFormat:@"%ld", (long)[self indexAtPosition:0]];
     
     for (NSUInteger position = 1; position < self.length ; position ++) {
-        [reprensentation appendFormat:@".%d", [self indexAtPosition:position]];
+        [reprensentation appendFormat:@".%ld", (long)[self indexAtPosition:position]];
     }
     
     return [reprensentation autorelease];
