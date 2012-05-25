@@ -27,7 +27,6 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
 
 - (void) performLayoutIfNeededWithNewSize:(CGSize) size;
 - (GCJumpBarLabel*) labelAtLevel:(NSUInteger) level;
-- (void) changeFontAndImageInMenu:(NSMenu*) subMenu;
 
 @end
 

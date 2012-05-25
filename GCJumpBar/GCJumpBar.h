@@ -28,6 +28,7 @@
 
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
 - (NSMenuItem*) menuItemAtIndexPath:(NSIndexPath*) indexPath;
+- (void) changeFontAndImageInMenu:(NSMenu*) subMenu;
 
 @end
 
