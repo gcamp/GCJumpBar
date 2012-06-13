@@ -114,7 +114,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     CGFloat baseLeft = 0;
     
     if (self.tag == GCJumpBarLabelAccessoryMenuLabelTag) {
-        NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarAccessorySeparator.png"];
+        NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarAccessorySeparator"];
         [separatorImage drawAtPoint:NSMakePoint(baseLeft + 1, self.frame.size.height / 2 - separatorImage.size.height / 2)
                            fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];  
         baseLeft += separatorImage.size.width + GCJumpBarLabelMargin;
@@ -143,7 +143,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     }
     
     if (!self.lastLabel && self.tag != GCJumpBarLabelAccessoryMenuLabelTag) {
-        NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarSeparator.png"];
+        NSImage* separatorImage = [NSImage imageNamed:@"GCJumpBarSeparator"];
         [separatorImage drawAtPoint:NSMakePoint(baseLeft, self.frame.size.height / 2 - separatorImage.size.height / 2)
                            fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];  
     }
