@@ -26,7 +26,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
 
 @synthesize image, text, lastLabel;
 @synthesize indexInLevel, clickedMenu;
-@synthesize delegate;
+@synthesize delegate = delegate;
 
 #pragma mark - View subclass
 

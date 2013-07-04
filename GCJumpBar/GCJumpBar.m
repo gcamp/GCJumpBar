@@ -33,13 +33,13 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
 
 @implementation GCJumpBar
 
-@synthesize underIdealWidth;
+@synthesize underIdealWidth = underIdealWidth;
 
-@synthesize delegate;
+@synthesize delegate = delegate;
 @synthesize menu, accessoryMenu;
 
 @synthesize selectedIndexPath, accessoryMenuSelectedIndex;
-@synthesize changeFontAndImageInMenu;
+@synthesize changeFontAndImageInMenu = changeFontAndImageInMenu;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {    
     self = [super initWithCoder:aDecoder];
