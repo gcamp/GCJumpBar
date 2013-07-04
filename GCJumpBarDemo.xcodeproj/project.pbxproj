@@ -18,6 +18,8 @@
 		B03A406F138D6F3A004677BE /* GCJumpBarLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */; };
 		B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */; };
 		B04247D413A9A99C005FF30D /* GCJumpBarAccessorySeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */; };
+		B05396D815884DAF004B4EB3 /* GCJumpBarAccessorySeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B05396D615884DAF004B4EB3 /* GCJumpBarAccessorySeparator@2x.png */; };
+		B05396D915884DAF004B4EB3 /* GCJumpBarSeparator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B05396D715884DAF004B4EB3 /* GCJumpBarSeparator@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		B03A4069138D6F3A004677BE /* GCJumpBarLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCJumpBarLabel.m; sourceTree = "<group>"; };
 		B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GCJumpBarSeparator.png; sourceTree = "<group>"; };
 		B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GCJumpBarAccessorySeparator.png; sourceTree = "<group>"; };
+		B05396D615884DAF004B4EB3 /* GCJumpBarAccessorySeparator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GCJumpBarAccessorySeparator@2x.png"; sourceTree = "<group>"; };
+		B05396D715884DAF004B4EB3 /* GCJumpBarSeparator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GCJumpBarSeparator@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +148,9 @@
 			isa = PBXGroup;
 			children = (
 				B04247D313A9A99B005FF30D /* GCJumpBarAccessorySeparator.png */,
+				B05396D615884DAF004B4EB3 /* GCJumpBarAccessorySeparator@2x.png */,
 				B03A406B138D6F3A004677BE /* GCJumpBarSeparator.png */,
+				B05396D715884DAF004B4EB3 /* GCJumpBarSeparator@2x.png */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -204,6 +210,8 @@
 				B03A4050138D5C34004677BE /* xcode.png in Resources */,
 				B03A4070138D6F3A004677BE /* GCJumpBarSeparator.png in Resources */,
 				B04247D413A9A99C005FF30D /* GCJumpBarAccessorySeparator.png in Resources */,
+				B05396D815884DAF004B4EB3 /* GCJumpBarAccessorySeparator@2x.png in Resources */,
+				B05396D915884DAF004B4EB3 /* GCJumpBarSeparator@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
