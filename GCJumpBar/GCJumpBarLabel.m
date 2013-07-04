@@ -122,7 +122,13 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     else baseLeft = GCJumpBarLabelMargin; 
     
     if (self.image != nil) {
-        [self.image drawAtPoint:NSMakePoint(baseLeft, floor(self.frame.size.height / 2 - self.image.size.height / 2)) 
+        [self.image setFlipped:self.isFlipped];
+        int top = 0;
+        if (self.isFlipped)
+            top = floor(self.frame.size.height / 2 + self.image.size.height / 2);
+        else
+            top = floor(self.frame.size.height / 2 - self.image.size.height / 2);
+        [self.image drawAtPoint:NSMakePoint(baseLeft, floor(self.frame.size.height / 2 - self.image.size.height / 2))
                        fromRect:NSZeroRect 
                       operation:NSCompositeSourceOver 
                        fraction:1.0];
