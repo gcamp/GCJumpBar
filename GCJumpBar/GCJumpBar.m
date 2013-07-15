@@ -286,14 +286,21 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     dirtyRect.origin.y = 0;
     
     NSGradient* mainGradient = nil;
-    if (!self.isEnabled || !self.window.isKeyWindow) {
-        mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] 
-                                                     endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+    if (_backgroundGradient)
+    {
+        mainGradient = [_backgroundGradient retain];
     }
-    else mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
-                                                      endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    else
+    {
+        if (!self.isEnabled || !self.window.isKeyWindow)
+            mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0]
+                                                         endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+        else
+            mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]
+                                                         endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    }
     [mainGradient drawInRect:dirtyRect angle:-90];
-    [mainGradient release];  
+    [mainGradient release];
     
     //Draw both stroke lines
     if (!self.isEnabled || !self.window.isKeyWindow) [[NSColor colorWithCalibratedWhite:0.5 alpha:1.0] set];
@@ -387,6 +394,16 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     }
     
     self.selectedIndexPath = indexPath;
+}
+
+- (void)setBackgroundGradient:(NSGradient *)backgroundGradient
+{
+    if (backgroundGradient != _backgroundGradient)
+    {
+        [_backgroundGradient release];
+        _backgroundGradient = [backgroundGradient retain];
+        [self setNeedsDisplay];
+    }
 }
 
 - (NSMenuItem *)selectedAccessoryMenuItem {

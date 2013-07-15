@@ -26,6 +26,8 @@
 @property (nonatomic, retain) NSMenuItem* selectedMenuItem;
 @property (nonatomic, retain) NSMenuItem* selectedAccessoryMenuItem;
 
+@property (nonatomic, retain) NSGradient* backgroundGradient;
+
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
 - (NSMenuItem*) menuItemAtIndexPath:(NSIndexPath*) indexPath;
 - (void) changeFontAndImageInMenu:(NSMenu*) subMenu;
