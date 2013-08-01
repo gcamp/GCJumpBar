@@ -17,6 +17,9 @@
 @property (nonatomic, retain) IBOutlet NSMenu* menu;
 @property (nonatomic, retain) IBOutlet NSMenu* accessoryMenu;
 
+@property (nonatomic, retain) NSString* accessoryMessage;
+@property (nonatomic, retain) NSImage* accessoryImage;
+
 @property (nonatomic, retain) NSIndexPath* selectedIndexPath;
 @property (nonatomic, assign) NSUInteger accessoryMenuSelectedIndex;
 
