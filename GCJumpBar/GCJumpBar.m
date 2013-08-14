@@ -32,13 +32,13 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
 
 @implementation GCJumpBar
 
-@synthesize underIdealWidth;
+@synthesize underIdealWidth = underIdealWidth;
 
-@synthesize delegate;
+@synthesize delegate = delegate;
 @synthesize menu, accessoryMenu;
 
 @synthesize selectedIndexPath, accessoryMenuSelectedIndex;
-@synthesize changeFontAndImageInMenu;
+@synthesize changeFontAndImageInMenu = changeFontAndImageInMenu;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {    
     self = [super initWithCoder:aDecoder];
@@ -158,7 +158,7 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
 #pragma mark - Layout
 
 - (void) performLayoutIfNeededWithNewSize:(CGSize) size {
-    if (self.accessoryMenu != nil  || self.underIdealWidth) [self performLayout];
+    if (self.accessoryMenu != nil || self.accessoryMessage != nil || self.underIdealWidth) [self performLayout];
     else {
         GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
         CGFloat endFloat = lastLabel.frame.size.width + lastLabel.frame.origin.x;
@@ -212,13 +212,27 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         frame.origin.x = self.frame.size.width - accessoryLabel.frame.size.width;
         accessoryLabel.frame = frame;
     }
+    else if (_accessoryMessage != nil)
+    {
+        GCJumpBarLabel* accessoryLabel = [self labelAtLevel:GCJumpBarAccessoryMenuLabelTag];
+
+        accessoryLabel.image = _accessoryImage;
+        accessoryLabel.text = _accessoryMessage;
+        accessoryLabel.indexInLevel = self.accessoryMenuSelectedIndex;
+        [accessoryLabel sizeToFit];
+        
+        NSRect frame = [accessoryLabel frame];
+        frame.origin.x = self.frame.size.width - accessoryLabel.frame.size.width;
+        accessoryLabel.frame = frame;
+        
+    }
 }
 
 - (void)lookForOverflowWidth {
     GCJumpBarLabel* lastLabel = [self viewWithTag:self.selectedIndexPath.length];
     CGFloat endFloat = lastLabel.frame.size.width + lastLabel.frame.origin.x;
 
-    if (self.accessoryMenu != nil) {
+    if (self.accessoryMenu != nil || self.accessoryMessage != nil) {
         endFloat += [[self viewWithTag:GCJumpBarAccessoryMenuLabelTag] frame].size.width;
     }
     
@@ -256,7 +270,7 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
             label.frame = frame;
         }
         
-        if (self.accessoryMenu != nil) {
+        if (self.accessoryMenu != nil || self.accessoryMessage != nil) {
             GCJumpBarLabel* accessoryLabel = [self labelAtLevel:GCJumpBarAccessoryMenuLabelTag];
             
             NSRect frame = [accessoryLabel frame];
@@ -275,7 +289,7 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
         position ++;
     }
     
-    if (self.accessoryMenu == nil) [[self viewWithTag:GCJumpBarAccessoryMenuLabelTag] removeFromSuperview];
+    if (self.accessoryMenu == nil && self.accessoryMessage == nil) [[self viewWithTag:GCJumpBarAccessoryMenuLabelTag] removeFromSuperview];
 }
 
 #pragma mark - Drawing
@@ -286,14 +300,21 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     dirtyRect.origin.y = 0;
     
     NSGradient* mainGradient = nil;
-    if (!self.isEnabled || !self.window.isKeyWindow) {
-        mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] 
-                                                     endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+    if (_backgroundGradient)
+    {
+        mainGradient = [_backgroundGradient retain];
     }
-    else mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0] 
-                                                      endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    else
+    {
+        if (!self.isEnabled || !self.window.isKeyWindow)
+            mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.96 alpha:1.0]
+                                                         endingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]];
+        else
+            mainGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.85 alpha:1.0]
+                                                         endingColor:[NSColor colorWithCalibratedWhite:0.73 alpha:1.0]];
+    }
     [mainGradient drawInRect:dirtyRect angle:-90];
-    [mainGradient release];  
+    [mainGradient release];
     
     //Draw both stroke lines
     if (!self.isEnabled || !self.window.isKeyWindow) [[NSColor colorWithCalibratedWhite:0.5 alpha:1.0] set];
@@ -387,6 +408,28 @@ const NSInteger GCJumpBarAccessoryMenuLabelTag = -1;
     }
     
     self.selectedIndexPath = indexPath;
+}
+
+-(void)setAccessoryMessage:(NSString *)accessoryMessage
+{
+    _accessoryMessage = accessoryMessage;
+    [self performLayout];
+}
+
+- (void)setAccessoryImage:(NSImage *)accessoryImage
+{
+    _accessoryImage = accessoryImage;
+    [self performLayout];
+}
+
+- (void)setBackgroundGradient:(NSGradient *)backgroundGradient
+{
+    if (backgroundGradient != _backgroundGradient)
+    {
+        [_backgroundGradient release];
+        _backgroundGradient = [backgroundGradient retain];
+        [self setNeedsDisplay];
+    }
 }
 
 - (NSMenuItem *)selectedAccessoryMenuItem {

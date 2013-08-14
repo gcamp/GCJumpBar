@@ -26,7 +26,7 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
 
 @synthesize image, text, lastLabel;
 @synthesize indexInLevel, clickedMenu;
-@synthesize delegate;
+@synthesize delegate = delegate;
 
 #pragma mark - View subclass
 
@@ -122,10 +122,17 @@ const NSInteger GCJumpBarLabelAccessoryMenuLabelTag = -1;
     else baseLeft = GCJumpBarLabelMargin; 
     
     if (self.image != nil) {
-        [self.image drawAtPoint:NSMakePoint(baseLeft, floor(self.frame.size.height / 2 - self.image.size.height / 2)) 
-                       fromRect:NSZeroRect 
-                      operation:NSCompositeSourceOver 
-                       fraction:1.0];
+        int top = 0;
+        if (self.isFlipped)
+            top = floor(self.frame.size.height / 2 + self.image.size.height / 2);
+        else
+            top = floor(self.frame.size.height / 2 - self.image.size.height / 2);
+        [self.image drawInRect:NSMakeRect(baseLeft, floor(self.frame.size.height / 2 - self.image.size.height / 2), self.image.size.width, self.image.size.height)
+                       fromRect:NSZeroRect
+                      operation:NSCompositeSourceOver
+                      fraction:1.0
+                respectFlipped:YES
+                         hints:nil];
         baseLeft += ceil(self.image.size.width) + GCJumpBarLabelMargin;
     }
     
