@@ -17,6 +17,9 @@
 @property (nonatomic, retain) IBOutlet NSMenu* menu;
 @property (nonatomic, retain) IBOutlet NSMenu* accessoryMenu;
 
+@property (nonatomic, retain) NSString* accessoryMessage;
+@property (nonatomic, retain) NSImage* accessoryImage;
+
 @property (nonatomic, retain) NSIndexPath* selectedIndexPath;
 @property (nonatomic, assign) NSUInteger accessoryMenuSelectedIndex;
 
@@ -25,6 +28,8 @@
 
 @property (nonatomic, retain) NSMenuItem* selectedMenuItem;
 @property (nonatomic, retain) NSMenuItem* selectedAccessoryMenuItem;
+
+@property (nonatomic, retain) NSGradient* backgroundGradient;
 
 - (id) initWithFrame:(NSRect)frameRect menu:(NSMenu*) aMenu;
 - (NSMenuItem*) menuItemAtIndexPath:(NSIndexPath*) indexPath;

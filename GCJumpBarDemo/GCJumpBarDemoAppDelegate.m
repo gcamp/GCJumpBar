@@ -11,8 +11,8 @@
 
 @implementation GCJumpBarDemoAppDelegate
 
-@synthesize window;
-@synthesize label;
+@synthesize window = window;
+@synthesize label = label;
 
 - (void)jumpBar:(GCJumpBar *)jumpBar didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     label.stringValue = [NSString stringWithFormat:@"Index path : %@", indexPath.stringRepresentation];
